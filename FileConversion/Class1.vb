@@ -21,7 +21,6 @@ Class Class1
                 document.Save(docxFilePath, FormatType.Docx)
             End Using
             Console.WriteLine("Changed to docx,filled bookmarks and added raows to the tables.")
-
         Catch ex As Exception
             Console.WriteLine(ex.Message)
         End Try
