@@ -1,27 +1,33 @@
 ﻿
+Imports System.Linq.Expressions
 Imports Syncfusion.DocIO
 Imports Syncfusion.DocIO.DLS
 
 Class Class1
     Shared Sub Main()
-        Dim dotxFilePath As String = "C:\Users\RajeA\Documents\Custom Office Templates\Employee details.dotx"
-        Dim docxFilePath As String = "C:\Users\RajeA\Documents\ConvertedFile.docx"
-        Dim rowCount As Integer = 5
-        Using document As New WordDocument(dotxFilePath)
-            Dim bookmarkNavigator As New BookmarksNavigator(document)
-            AddEmployeeDetails(bookmarkNavigator, "FirstName", "Atharva")
-            AddEmployeeDetails(bookmarkNavigator, "lastName", "Raje")
-            AddEmployeeDetails(bookmarkNavigator, "CompanyName", "AdtechCorp")
-            AddEmployeeDetails(bookmarkNavigator, "Worklocation", "Hyderabad,Telangana,India")
-            GenerateTable(bookmarkNavigator, "OrderTable", rowCount, AddressOf GenerateOrderRow)
-            GenerateTable(bookmarkNavigator, "JobTable", rowCount, AddressOf GenerateJobRow)
-            GenerateTable(bookmarkNavigator, "InventoryTable", rowCount, AddressOf GenerateInventoryRow)
-            document.Save(docxFilePath, FormatType.Docx)
-        End Using
-        Console.WriteLine("Changed to docx,filled bookmarks and added rows to the tables.")
+        Try
+            Dim dotxFilePath As String = "C:\Users\RajeA\Documents\Employee details3.dotx"
+            Dim docxFilePath As String = "C:\Users\RajeA\Documents\ConvertedFile.docx"
+            Dim rowCount As Integer = 5
+            Using document As New WordDocument(dotxFilePath)
+                Dim bookmarkNavigator As New BookmarksNavigator(document)
+                AddEmployeeDetails(bookmarkNavigator, "FirstName", "Atharva")
+                AddEmployeeDetails(bookmarkNavigator, "LastName", "Raje")
+                AddEmployeeDetails(bookmarkNavigator, "CompanyName", "AdtechCorp")
+                AddEmployeeDetails(bookmarkNavigator, "Worklocation", "Hyderabad,Telangana,India")
+                GenerateTable(bookmarkNavigator, "OrderTable", rowCount, AddressOf GenerateOrderRow)
+                GenerateTable(bookmarkNavigator, "JobTable", rowCount, AddressOf GenerateJobRow)
+                GenerateTable(bookmarkNavigator, "InventoryTable", rowCount, AddressOf GenerateInventoryRow)
+                document.Save(docxFilePath, FormatType.Docx)
+            End Using
+            Console.WriteLine("Changed to docx,filled bookmarks and added raows to the tables.")
+
+        Catch ex As Exception
+            Console.WriteLine(ex.Message)
+        End Try
     End Sub
-    Private Shared Sub AddEmployeeDetails(bookmarkNavigator As BookmarksNavigator, bookmarknName As String, inputValue As String)
-        bookmarkNavigator.MoveToBookmark(bookmarknName)
+    Private Shared Sub AddEmployeeDetails(bookmarkNavigator As BookmarksNavigator, bookmarkName As String, inputValue As String)
+        bookmarkNavigator.MoveToBookmark(bookmarkName)
         bookmarkNavigator.DeleteBookmarkContent(True)
         bookmarkNavigator.InsertText(inputValue)
     End Sub
